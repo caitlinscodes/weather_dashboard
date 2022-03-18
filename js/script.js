@@ -3,6 +3,7 @@ var searchBtn = document.getElementById("#searchBtn");
 var searchInput = "";
 var latitude = "";
 var longitude = "";
+var currentWeatherResults = document.getElementsByClassName(".search-results");
 
 // Open Weather API Key: fe26f57c2c8868b05e39afb09fead7ee
 // Geo-Coding API = http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={fe26f57c2c8868b05e39afb09fead7ee}
@@ -21,6 +22,7 @@ function myFunction(event){
   console.log(searchInput);
 
   citySearchConverter();
+  currentWeatherApi();
 };
 
 // APIs
@@ -33,9 +35,11 @@ function citySearchConverter(){
     console.log(data)
     
     for (let i=0; i < data.length; i++){
-      latitude = data[i].lat;
-      longitude = data[i].lon;
+      latitude = data[0].lat;
+      longitude = data[0].lon;
       console.log(latitude, longitude);
+      localStorage.setItem("latitude", latitude);
+      localStorage.setItem("longitude", longitude);
     }
 
 
@@ -46,37 +50,46 @@ function citySearchConverter(){
 }
 
 function currentWeatherApi(){
+  latitude = JSON.parse(localStorage.getItem("latitude"));
+  longitude = JSON.parse(localStorage.getItem("longitude", longitude));
+
   fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=fe26f57c2c8868b05e39afb09fead7ee")
     .then(function(response){
       return response.json()
     })
-    .then( function(data){
+    .then(function(data){
       console.log(data)
-      // for (let i = 0; i < data.length; i++) {
-      //   //Creating elements
-      //   var cityName = document.createElement('h2');
-      //   var date = document.createElement('<p>')
-      //   var temp = document.createElement('<li>');
-      //   var humidity = document.createElement('<li>');
-      //   var windSpeed = document.createElement('li');
-      //   var uvIdx = document.createElement('<li>');
+        for (let i = 0; i < data.length; i++) {
+          //Creating elements
+          var cityName = document.createElement('h2');
+          var date = document.createElement('<p>');
+          var temp = document.createElement('<li>');
+          var humidity = document.createElement('<li>');
+          var windSpeed = document.createElement('li');
+          // var uvIdx = document.createElement('<li>');
 
 
-      //   //Setting the text of the elements.
-      //   cityName.textContent = data[i].name;
-      //   date.textContent = data[i].date;
-      //   temp.textContent = data[i].temp;
-      //   humidity.textContent = data[i]
-        
+          //Setting the text of the elements.
+          cityName.textContent = data[i].name;
+          date.textContent = data[i].date;
+          temp.textContent = data[i].temp;
+          humidity.textContent = data[i].humidity;
+          windSpeed.textContent = data[i].speed;
+          // uvIdx.textContent = data[i].
+          
 
-      //   //Append to the html
-      //   usersContainer.append(cityName);
-      //   usersContainer.append(userUrl);
-    })
-    .catch(function(error){
-      console.log(error)
-    });
-}
+          //Append to the html
+          currentWeatherResults.append(cityName);
+          currentWeatherResults.append(date);
+          currentWeatherResults.append(temp);
+          currentWeatherResults.append(humidity);
+          currentWeatherResults.append(windSpeed);
+    }
+    // .catch(function(error){
+    //   console.log(error)
+    // });
+  });
+
 
 //currently broken - Need another API key?
 // function fiveDayWeatherApi(){
@@ -115,9 +128,5 @@ function currentWeatherApi(){
 //City is saved in local storage and can be referenced in sidebar
 
 
-  //When user selects city from search history they can view the information again. 
-
-
-// citySearchConverter();
-// currentWeatherApi();
-// fiveDayWeatherApi();
+  //When user selects city from search history they can view the information again.
+}
