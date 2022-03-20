@@ -17,28 +17,9 @@ h1, h2 {
 }
 
 /* Header */
-header {
+.jumbotron {
   background-color: var(--hf);
-  display: flex;
-  padding: 20px;
-}
-
-header img {
-  border-radius: 15px;
-  position: relative;
-}
-
-.header-info {
-  width: 100%;
   text-align: center;
-}
-
-header h1 {
-  text-align: center;
-}
-
-nav ul {
-  list-style-type: none;
 }
 
 /* Pulled from pseudo classes assignment */
@@ -66,40 +47,6 @@ main {
   margin: 20px;
 }
 
-/* section {
-  position: relative;
-  background-color: var(--box);
-  border: 3px solid var(--hf);
-  margin-bottom: 10px;
-  padding: 20px;
-  width: 95%;
-}
-
-section.design, section.back-end {
-  text-align: right;
-}
-
-section.design img, section.back-end img {
-  border-radius: 15px;
-  display: inline-block;
-  margin: 20px;
-  position: relative;
-  float: left;
-}
-
-section.front-end {
-  text-align: left;
-}
-
-section.front-end img {
-  border-radius: 15px;
-  display: inline-block;
-  margin: 20px;
-  position: relative;
-  float: right;
-} */
-
-/* Aside Body */
 aside {
   flex: 1 1 auto;
   background-color: var(--box);
@@ -111,13 +58,16 @@ aside {
   height: 100%;
 }
 
-/* aside img {
-  border-radius: 15px;
+section {
+  flex: 1 1 auto;
+  background-color: var(--box);
+  border: 3px solid var(--hf);
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+  width: 25%;
+  height: 100%;
 }
-
-aside ul li {
-  display: block;
-} */
 
 /* Footer */
 footer {
@@ -128,6 +78,3 @@ footer {
   text-align: center;
 }
 
-footer img {
-  border-radius: 15px;
-}

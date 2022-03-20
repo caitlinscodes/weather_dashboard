@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="./assets/css/main.css">
   <title>Weather Dashboard</title>
 </head>
+
 <body>
+  
   <header>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
@@ -18,8 +20,10 @@
       </div>
     </div>
   </header>
-  <main>
-    <aside col="4">
+  
+  <main class="row-12">
+    
+    <aside class="col-4">
       <h2> Search for a City:</h2>
       <form class="city-search">
         <div class="input-group input-group-sm mb-3">
@@ -31,15 +35,17 @@
         <!-- Use localStorage to push search results here -->
       </div>
     </aside>
-    <div class="weather display">
-      <div class="search-results"></div>
+
+    <section class="weather-display col-8">
+      <div class="search-result"></div>
       <div class="five-day"></div>
-    </div>
+    </section>
+ 
   </main>
+ 
   <footer>
     <p class="footer" col="12">Thank you for visiting the Weather Dashboard!</p>
   </footer>
-
  
 </body>
 </html>

@@ -67,6 +67,7 @@ function currentWeatherApi(){
           var humidity = document.createElement('<li>');
           var windSpeed = document.createElement('li');
           // var uvIdx = document.createElement('<li>');
+          console.log("elements created");
 
 
           //Setting the text of the elements.
@@ -76,6 +77,7 @@ function currentWeatherApi(){
           humidity.textContent = data[i].humidity;
           windSpeed.textContent = data[i].speed;
           // uvIdx.textContent = data[i].
+          console.log("data pulled");
           
 
           //Append to the html
@@ -84,6 +86,7 @@ function currentWeatherApi(){
           currentWeatherResults.append(temp);
           currentWeatherResults.append(humidity);
           currentWeatherResults.append(windSpeed);
+          console.log("items appended");
     }
     // .catch(function(error){
     //   console.log(error)
