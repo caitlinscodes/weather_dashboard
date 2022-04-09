@@ -72,7 +72,7 @@ function currentWeatherApi(){
 
           //Setting the text of the elements.
           cityName.textContent = data[i].name;
-          date.textContent = data[i].date;
+          date.textContent = data[i].date; // This should us momentJS (?)
           temp.textContent = data[i].temp;
           humidity.textContent = data[i].humidity;
           windSpeed.textContent = data[i].speed;
