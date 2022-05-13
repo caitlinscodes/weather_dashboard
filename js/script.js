@@ -1,38 +1,41 @@
 // Global Variables
 var searchHistory = JSON.parse(localStorage.getItem('history')) ?? []
+var searchBtn = $('#locationSearch');
+var apiKey = "fe26f57c2c8868b05e39afb09fead7ee";
+
 
 $(document).ready(function () {
-    var searchBtn = $('#citySearch');
-    var apiKey = "fe26f57c2c8868b05e39afb09fead7ee";
-    const prevList = document.getElementById("list")
+    const prevSearchList = document.getElementById("list")
 
 
     searchBtn.on("click", function (event) {
         event.preventDefault()
-        var searchValue = $("#search").val()
-        searchHistory.push(searchValue)
+
+        var searchInput = $("#search").val()
+
+        searchHistory.push(searchInput)
         localStorage.setItem("history", JSON.stringify(searchHistory))
         $("#currentWeather").empty()
         $("#fiveDayWeather").empty()
-        getCurrentWeather(searchValue)
+        getCurrentWeather(searchInput)
 
         searchHistory.forEach((item => {
             let history = document.createElement('li');
             history.textContent = `City: ${item}`;
-            prevList.appendChild(history)
+            prevSearchList.appendChild(history)
         }))
     })
 
-    async function getCurrentWeather(searchValue) {
-        var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=${apiKey}&units=imperial`;
-        console.log('requestUrl', requestUrl)
+    async function getCurrentWeather(searchInput) {
+        var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&appid=${apiKey}&units=imperial`;
+       
         let data = await (await fetch(requestUrl)).json()
-        const coords = {
+        const coord = {
             lat: data.coord.lat,
             lon: data.coord.lon
         };
 
-        const fiveDayUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=imperial`
+        const fiveDayUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=imperial`
         let fiveDayData = await (await fetch(fiveDayUrl)).json()
 
         let cityName = data.name;
@@ -42,17 +45,17 @@ $(document).ready(function () {
         let uvi = fiveDayData.daily[0].uvi
 
         let card = $("<div class='card'>");
-        let cardHeader = $("<div class='card-header'>");
-        let cardBody = $("<div class='card-body'>");
+        let cardHeader = $("<div>");
+        let cardBody = $("<div>");
         let currentIcon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`)
-        let tempEl = $("<p class='card-text'>").text("Temperature: " + temp)
-        let windEl = $("<p class='card-text'>").text("Wind Speed: " + wind + " MPH")
-        let humidEl = $("<p class='card-text'>").text("Humidity: " + humiditiy + "%")
-        let nameEl = $("<p class='card-title'>").text(cityName)
+        let tempEl = $("<p>").text("Temperature: " + temp)
+        let windEl = $("<p>").text("Wind Speed: " + wind + " mph")
+        let humidEl = $("<p>").text("Humidity: " + humiditiy + "%")
+        let nameEl = $("<p>").text(cityName)
         let bgColor = "#CEBECF"
         if (uvi >= 6 && uvi <= 10) bgColor = "#D59A4B"
         if (uvi >= 11) bgColor = "#CD0CCF"
-        let uviEl = $("<p class='card-text'>")
+        let uviEl = $("<p>")
             .text(`UV Index: ${uvi}`)
             .css({
                 "color": bgColor,
@@ -71,13 +74,13 @@ $(document).ready(function () {
                 let humiditiy = day.humidity;
                 let date = new Date(day.dt * 1000)
                 card = $("<div class='card'>");
-                let cardHeader = $("<div class='card-header'>");
-                let cardBody = $("<div class='card-body'>");
+                let cardHeader = $("<div>");
+                let cardBody = $("<div>");
                 let icon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`)
-                let tempEl = $("<p class='card-text'>").text("Temperature: " + temp)
-                let windEl = $("<p class='card-text'>").text("Wind Speed: " + wind + " MPH")
-                let humidEl = $("<p class='card-text'>").text("Humidity: " + humiditiy + "%")
-                let dayEl = $("<p class='card-text'>").text(date.toLocaleDateString())
+                let tempEl = $("<p>").text("Temperature: " + temp)
+                let windEl = $("<p>").text("Wind Speed: " + wind + " mph")
+                let humidEl = $("<p>").text("Humidity: " + humiditiy + "%")
+                let dayEl = $("<p>").text(date.toLocaleDateString())
                 cardBody.append(tempEl, windEl, humidEl, dayEl, icon)
                 card.append(cardBody)
                 $("#fiveDayWeather").append(card)
