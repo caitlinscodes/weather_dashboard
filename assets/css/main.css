@@ -1,8 +1,8 @@
 :root {
-  --hf: #68a691;
-  --box: #bfd3c1;
-  --bg: #ffe5d4;
-  --txt: #efc7c2;
+  --hf: #6494BC;
+  --box: #506B2C;
+  --bg: #E1EFF8;
+  --txt: #F4FDFE;
 }
 
 body {
@@ -22,24 +22,7 @@ h1, h2 {
   text-align: center;
 }
 
-/* Pulled from pseudo classes assignment */
- div.samples ul {
-  display: none;
-}
-
-div.samples:hover {
-  cursor: pointer;
-}
-
-div.samples:hover ul {
-  display: block;
-}
-
 /* Main Body */
-.flex-container {
-  display: flex;
-}
-
 main {
   display: flex;
   flex-direction: column;

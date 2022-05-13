@@ -11,7 +11,6 @@
 </head>
 
 <body>
-  
   <header>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
@@ -20,31 +19,54 @@
       </div>
     </div>
   </header>
-  
-  <main class="row-12">
-    
-    <aside class="col-4">
-      <h2> Search for a City:</h2>
-      <form class="city-search">
-        <div class="input-group input-group-sm mb-3">
-          <input type="text" id="search-input" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-        </div>
-        <button id="searchBtn">Search</button>
-      </form>
-      <div class="pre-city-display">
-        <!-- Use localStorage to push search results here -->
-      </div>
-    </aside>
+  <main class="row-12"> 
+      <aside class="col-4">
+        <form>
+          <div class="search">
+              <div class="container">
 
-    <section class="weather-display col-8">
-      <div class="search-result"></div>
-      <div class="five-day"></div>
-    </section>
- 
+                  <div class="form-group">
+                      <label for="searchCity">
+                          <h3>Search For a City:</h3>
+                      </label>
+                      <input type="search" id="search">
+                  </div>
+                  <button type="submit" id="citySearch">Submit</button>
+                  <br>
+                  <div class="boxes jumbotron">
+                    <div id="previousSearch" class="container">
+                        <p>Search History:</p>
+                        <ul id = "list">
+          
+                        </ul>
+                    </div>
+                  </div>
+
+                </div>
+            </div>  
+        </form>
+      </aside>
+
+      <section id="forecast" class="col-6">
+        <div id="currentBox" class="boxes jumbotron">
+            <div id="currentWeather" class="container">
+              <h3>Current Forecast:</h3>
+            </div>
+        </div>
+      </section>
+
+      <section class="col-12">
+        <div id="fiveDayBox" class="boxes jumbotron">
+            <p><h2>Five Day Forecast:</h2></p>
+            <div id="fiveDayWeather" class="container">
+
+            </div>
+        </div>
+      </section>
   </main>
  
   <footer>
-    <p class="footer" col="12">Thank you for visiting the Weather Dashboard!</p>
+    <p class="footer col-12">Thank you for visiting the Weather Dashboard!</p>
   </footer>
  
 </body>
