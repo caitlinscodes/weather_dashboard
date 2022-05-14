@@ -3,11 +3,11 @@ var searchHistory = JSON.parse(localStorage.getItem('history')) ?? []
 var searchBtn = $('#locationSearch');
 var apiKey = "fe26f57c2c8868b05e39afb09fead7ee";
 
-
+// Main Function
 $(document).ready(function () {
     const prevSearchList = document.getElementById("list")
 
-
+    // Search for City
     searchBtn.on("click", function (event) {
         event.preventDefault()
 
@@ -26,24 +26,29 @@ $(document).ready(function () {
         }))
     })
 
+    // Get Current Weather & Five Day Forecast
     async function getCurrentWeather(searchInput) {
         var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&appid=${apiKey}&units=imperial`;
-       
+        
+        // Get Searched City Coordinates
         let data = await (await fetch(requestUrl)).json()
         const coord = {
             lat: data.coord.lat,
             lon: data.coord.lon
         };
 
+        // API for Five Day Forecast
         const fiveDayUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=imperial`
         let fiveDayData = await (await fetch(fiveDayUrl)).json()
 
+        // Weather Data Variables
         let cityName = data.name;
         let temp = data.main.temp;
         let wind = data.wind.speed;
         let humiditiy = data.main.humidity;
         let uvi = fiveDayData.daily[0].uvi
 
+        // Set Current Weather to Current Forecast
         let card = $("<div class='card'>");
         let cardHeader = $("<div>");
         let cardBody = $("<div>");
@@ -65,7 +70,8 @@ $(document).ready(function () {
         cardBody.append(tempEl, windEl, humidEl, currentIcon, uviEl)
         card.append(cardHeader, cardBody)
         $("#currentWeather").append(card)
-
+        
+        // Set Five Day Weather to Fivde Day Forecast
         fiveDayData.daily
             .slice(1, 6)
             .forEach((day) => {
