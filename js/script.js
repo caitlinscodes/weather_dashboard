@@ -5,7 +5,7 @@ var apiKey = "fe26f57c2c8868b05e39afb09fead7ee";
 
 // Main Function
 $(document).ready(function () {
-    const prevSearchList = document.getElementById("list")
+    const prevSearchList = document.getElementById("previous-search")
 
     // Search for City
     searchBtn.on("click", function (event) {
@@ -79,8 +79,9 @@ $(document).ready(function () {
                 let wind = day.wind_speed;
                 let humiditiy = day.humidity;
                 let date = new Date(day.dt * 1000)
+
+                // Insert into index.html
                 card = $("<div class='card'>");
-                let cardHeader = $("<div>");
                 let cardBody = $("<div>");
                 let icon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`)
                 let tempEl = $("<p>").text("Temperature: " + temp)
